@@ -1,0 +1,49 @@
+If the pattern does not contain a slash /, git treats it as a shell
+       glob pattern and checks for a match against the pathname relative
+       to the location of the .gitignore file (relative to the toplevel of
+       the work tree if not from a .gitignore file).
+
+  ·   Otherwise, git treats the pattern as a shell glob suitable for
+       consumption by fnmatch(3) with the FNM_PATHNAME flag: wildcards in
+       the pattern will not match a / in the pathname. For example,
+       "Documentation/*.html" matches "Documentation/git.html" but not
+       "Documentation/ppc/ppc.html" or
+       "tools/perf/Documentation/perf.html".
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon^M^M
+
+# Thumbnails
+._*
+*.pyc
+*.ojaswiresort_com
+*.indoasia-hotels_com
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+.installed.cfg
+bin
+develop-eggs
+dist
+downloads
+eggs
+parts
+src/*.egg-info
+lib
+lib64
