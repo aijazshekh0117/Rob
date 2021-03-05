@@ -84,6 +84,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+    'EXCEPTION_HANDLER': 'rest_framework.views.exception_handler'
 }
 JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
@@ -113,6 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 9,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -120,8 +124,26 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
-]
+    {
+        'NAME': 'RBosch.passwordValidators.MyNumberValidator',
+    },
+    {
+        'NAME': 'RBosch.passwordValidators.MyUppercaseValidator',
+    },
+{
+        'NAME': 'RBosch.passwordValidators.MyLowercaseValidator',
+    },
+{
+        'NAME': 'RBosch.passwordValidators.MySymbolValidator',
+    },
 
+]
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -141,3 +163,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'aijazshekh0117@gmail.com'
+EMAIL_HOST_PASSWORD = 'qaypkkusqbgoexyc'
