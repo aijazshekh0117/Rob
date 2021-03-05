@@ -4,6 +4,7 @@ from django.contrib import admin
 
 
 from .models.questions import Question
+from .models import Answer
 
 
 class QuestionsAdmin(admin.ModelAdmin):
@@ -11,3 +12,10 @@ class QuestionsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Question, QuestionsAdmin)
+
+
+class AnswerAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(Answer, AnswerAdmin)

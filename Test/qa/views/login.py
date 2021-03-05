@@ -40,7 +40,6 @@ class Login(views.APIView):
             )
 
 
-
 class TokenAuthentication(BaseAuthentication):
     model = None
 

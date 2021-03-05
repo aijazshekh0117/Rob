@@ -9,6 +9,7 @@ import jwt
 from rest_framework.permissions import AllowAny
 from django.conf import settings
 
+
 class CreateUserViewSet(ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
