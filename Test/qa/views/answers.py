@@ -8,18 +8,24 @@ from django.core.mail import send_mail
 from ..email.config import Config
 from rest_framework import status
 from rest_framework.response import Response
+from .create_user import is_user, is_mentor
 import logging
 
 logger = logging.getLogger(__name__)
 
 
 class AnswerViewSet(ModelViewSet):
-    permission_classes = (IsAuthenticated, IsAdminUser)
+    permission_classes = (IsAuthenticated,)
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
 
     def create(self, request, *args, **kwargs):
         try:
+            if is_user(request):
+                return Response(
+                    {"Unauthorized":
+                         "You are not authorized, or role is not yet set for this user please get in touch with admin"},
+                    status=status.HTTP_401_UNAUTHORIZED)
             serializer = self.get_serializer(data=request.data)
             logger.info("Validating data.")
             serializer.is_valid(raise_exception=True)
@@ -38,6 +44,11 @@ class AnswerViewSet(ModelViewSet):
 
     def update(self, request, *args, **kwargs):
         try:
+            if is_user(request):
+                return Response(
+                    {"Unauthorized":
+                         "You are not authorized, or role is not yet set for this user please get in touch with admin"},
+                    status=status.HTTP_401_UNAUTHORIZED)
             partial = kwargs.pop('partial', False)
             instance = self.get_object()
             serializer = self.get_serializer(instance, data=request.data, partial=partial)
@@ -55,6 +66,17 @@ class AnswerViewSet(ModelViewSet):
                 logger.info("Sent Email.")
         except Exception as e:
             logger.error(e)
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     def get_email(self, request):
         user_obj = User.objects.filter(username='admin').first()

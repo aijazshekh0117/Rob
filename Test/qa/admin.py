@@ -5,6 +5,7 @@ from django.contrib import admin
 
 from .models.questions import Question
 from .models import Answer
+from .models import Role
 
 
 class QuestionsAdmin(admin.ModelAdmin):
@@ -19,3 +20,10 @@ class AnswerAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Answer, AnswerAdmin)
+
+
+class RoleAdmin(admin.ModelAdmin):
+    pass
+
+
+admin.site.register(Role, RoleAdmin)

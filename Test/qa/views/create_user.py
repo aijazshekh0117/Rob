@@ -8,6 +8,10 @@ from rest_framework_jwt.serializers import jwt_payload_handler
 import jwt
 from rest_framework.permissions import AllowAny
 from django.conf import settings
+from ..models import Role
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class CreateUserViewSet(ModelViewSet):
@@ -57,3 +61,28 @@ def authenticate_user(request):
     except KeyError:
         res = {'error': 'please provide a email and a password'}
         return Response(res)
+
+
+def is_mentor(request):
+    try:
+        logger.info("checking the uer role .. ")
+        role_obj = Role.objects.filter(user=request.user.pk).first()
+        flag = False
+        if role_obj and role_obj.role == 'Mentor':
+            flag = True
+        return flag
+    except Exception as e:
+        logger.error(e)
+
+
+def is_user(request):
+    try:
+        logger.info("checking the uer role .. ")
+        role_obj = Role.objects.filter(user=request.user.pk).first()
+
+        flag = False
+        if role_obj and role_obj.role == 'User':
+            flag = True
+        return flag
+    except Exception as e:
+        logger.error(e)
