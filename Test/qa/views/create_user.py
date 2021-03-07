@@ -64,6 +64,10 @@ def authenticate_user(request):
 
 
 def is_mentor(request):
+    """
+        this function check the mentor role
+        return the True false after validation
+    """
     try:
         logger.info("checking the uer role .. ")
         role_obj = Role.objects.filter(user=request.user.pk).first()
@@ -76,6 +80,10 @@ def is_mentor(request):
 
 
 def is_user(request):
+    """
+        this function check the user role
+        return the True false after validation
+    """
     try:
         logger.info("checking the uer role .. ")
         role_obj = Role.objects.filter(user=request.user.pk).first()
