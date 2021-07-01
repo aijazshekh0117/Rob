@@ -32,7 +32,7 @@ class QuestionViewSet(ModelViewSet):
             logger.info("Data swaved Successfully.")
             headers = self.get_success_headers(serializer.data)
             admin_email = self.get_email(request)
-            subject = Config.ANSWER_MESSAGE + ': ' + request.data['Question']
+            subject = Config.ANSWER_MESSAGE + ': ' + request.data['question']
             if request.user.email and admin_email:
                 logger.info("Sending Messeage..")
                 send_mail(Config.QUESTION_MESSAGE, subject, request.user.email, [admin_email])
