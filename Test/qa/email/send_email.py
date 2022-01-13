@@ -2,7 +2,7 @@
 #
 # send_mail(
 #     'Bebaa',
-#     'I love you so much.',
+#     'I miss you so much.',
 #     'aijazshekh0117@gmail.com',
 #     ['malik12tanya@gmail.com'],
 #     fail_silently=False,
